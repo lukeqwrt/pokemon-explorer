@@ -4,7 +4,7 @@
              :class="['type text-white px-5 py-[5px] rounded-lg w-[120px] flex justify-center items-center gap-[6px]', getClassType(type)]" 
              v-for="type in pokemonTypes" :key="type"
              @end="onEnd">
-             <img loading="lazy" width="18" :src="`/src/assets/image/pokemon-type-svg/${type}.svg`" alt="grass">
+             <img loading="lazy" width="18" :src="`./pokemon-type-svg/${type}.svg`" alt="grass">
              <p class="text-base font-bold uppercase">{{ type }}</p>
          </div >
      </div>
