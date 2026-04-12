@@ -1,0 +1,48 @@
+#app {
+    height: 100%;
+  }
+  html,
+  body {
+    position: relative;
+    height: 100%;
+  }
+
+  .mySwiper{
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    width: auto;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+
+  .container{
+    @apply mx-auto py-10 px-[12px] max-w-[1325px] grid justify-between 
+    max-2xl:max-w-[1140px] 
+    max-xl:max-w-[960px] 
+    max-lg:max-w-[720px] max-lg:mx-auto 
+    max-md:max-w-[540px];
+  }
+  
+  .pokemon-col{
+    @apply gap-x-5 gap-y-28  grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1
+  }
