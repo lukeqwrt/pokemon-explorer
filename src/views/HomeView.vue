@@ -39,7 +39,6 @@ const getPokemon = async (page) => {
         isLoading: false
       }
     ))
-    console.log('run check')
     // store.pageCache[page] = results;
     store.isType = false
     setTimeout(() => {
@@ -133,9 +132,7 @@ const passPokemonType = async (type) => {
   }, 300);
 }
 const paginateType = async () => {
-
-  store.disableNextType = true;
-  store.pokemonlistfetch = false 
+ 
   const limit = 9;
   const page = store.pokemonPage;
   const start = page * limit;
@@ -170,6 +167,7 @@ const pokemonSearchLoading = ref(false)
 
 const pokeSearch = async (name) => {
   if(!name){
+    getPokemon(0)
     return
   }
 
@@ -184,7 +182,8 @@ const pokeSearch = async (name) => {
     setTimeout( async () => {
       if(filterPokemon && filterPokemon.length !== 0){
         pokemons.value = []
-        pokemons.value = await filterPokemon.slice(0, 9);
+        // pokemons.value = await filterPokemon.slice(0, 9);
+        pokemons.value = await filterPokemon
         errorSearch.value = ''
         pokemonSearchLoading.value = false
         handleScroll()
@@ -211,11 +210,12 @@ const pokeSearch = async (name) => {
 watch(
   () => store.pokemonPage, // Watch the page offset in the store
   (newPage) => {
-    console.log('page now is: ' + newPage)
     if(store.isType) {
       if(skipWatch.value){
         return
       }
+      store.disableNextType = true;
+      store.pokemonlistfetch = false 
       pokemons.value = [];
       debounceTimeout = setTimeout(async () => {
         await paginateType()

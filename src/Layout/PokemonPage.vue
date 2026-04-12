@@ -10,7 +10,11 @@
                 <Icon 
                     icon="zondicons:minus-outline" 
                     class="h-[20px] w-[20px] cursor-pointer text-white" 
-                    :class="[!store.pokemonlistfetch || store.totalPages === 0 && !store.disablePrevType ? 'pointer-events-none text-[#636363]' : 'pointer-events-auto' ]"
+                    :class="[
+                        (!store.pokemonlistfetch || store.totalPages === 0 || store.disablePrevType)
+                        ? 'pointer-events-none !text-[#636363]'
+                        : 'pointer-events-auto'
+                        ]"
                     @click="store.prev()"
                 />
                 <div class="text-white text-lg font-bold font-primary flex justify-center items-center w-full ">
@@ -30,7 +34,7 @@
                     icon="octicon:plus-circle-16" 
                     class="h-[20px] w-[20px] cursor-pointer text-white" 
                     :class="{
-                        'pointer-events-none text-[#636363]': !store.pokemonlistfetch || store.disableNextType,
+                        'pointer-events-none !text-[#636363]': !store.pokemonlistfetch || store.disableNextType,
                         'pointer-events-auto': store.pokemonlistfetch && !store.disableNextType
                     }"
                     @click="store.next()"
