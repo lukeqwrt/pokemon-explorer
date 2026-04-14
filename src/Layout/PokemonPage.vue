@@ -5,7 +5,7 @@
             <router-view />
         </div>
 
-        <div class="fixed bottom-0 lef w-full h-[100px] z-[999] flex justify-center items-center ">
+        <div v-if="store.paginateShow" class="fixed bottom-0 lef w-full h-[100px] z-[999] flex justify-center items-center ">
             <div class="prev_and_next rounded-[12px] px-5 flex justify-between items-center bg-primary opacity-[80%] border-2 border-white border-opacity-20 h-[50px] w-[226px]">
                 <Icon 
                     icon="zondicons:minus-outline" 
@@ -55,9 +55,9 @@ onMounted(() => pageChanged())
 
 const pageChanged = () => {
     if(store.isType){
-        pageinput.value = store.pokemonPage
+        pageinput.value = store.pokemonPage + 1
     }else {
-        pageinput.value = store.totalPages
+        pageinput.value = store.totalPages + 1
     }
 }
 

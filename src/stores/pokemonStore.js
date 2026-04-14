@@ -9,7 +9,8 @@ export const useMainStore = defineStore('main', {
     pokemonPage: 0,
     disableNextType: false,
     disablePrevType: false,
-    pageCache: {}
+    pageCache: {},
+    paginateShow: true
   }),
   getters: {
     totalPages: (state) => Math.ceil(state.pokemonPage / 9),  

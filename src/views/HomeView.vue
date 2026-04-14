@@ -17,6 +17,8 @@ const page = ref(0)
 const pageSize = ref(9);
 const isWithType = ref(false)
 const skipWatch = ref(false)
+const searchInput = ref()
+const search = ref('')
 // home default showing pokemons
 const getPokemon = async (page) => {
   try {
@@ -29,6 +31,7 @@ const getPokemon = async (page) => {
     // }
 
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=9&offset=${page}`);
+    // console.log(page)
     const data = await res.json();
     const results = data.results.map((res, index) => (
       {
@@ -44,6 +47,8 @@ const getPokemon = async (page) => {
     setTimeout(() => {
       pokemons.value = results
       store.pokemonlistfetch = true  
+      store.paginateShow = true
+      search.value = ''
     }, 300);
 
   } catch (error) {
@@ -94,6 +99,8 @@ const passPokemonType = async (type) => {
   store.pokemonlistfetch = false
   store.isType = true;
   store.getPokemonType = type
+  store.paginateShow = true
+  search.value = ''
   if(type === 'home'){
     pokemons.value = []
     pokemonPlaceholders.value = Array.from({ length: 9 }, () => ({isLoading: true}) )
@@ -132,7 +139,7 @@ const passPokemonType = async (type) => {
   }, 300);
 }
 const paginateType = async () => {
- 
+  search.value = ''
   const limit = 9;
   const page = store.pokemonPage;
   const start = page * limit;
@@ -154,6 +161,7 @@ const paginateType = async () => {
   setTimeout(() => {
     pokemons.value = results.slice(start, end)
     store.pokemonlistfetch = true 
+    store.paginateShow = true
     if(page == maxPage){
       store.disableNextType = true;
     } else {
@@ -166,7 +174,10 @@ const errorSearch = ref()
 const pokemonSearchLoading = ref(false)
 
 const pokeSearch = async (name) => {
+  searchInput.value = name
+
   if(!name){
+    store.paginateShow = true
     getPokemon(0)
     return
   }
@@ -181,21 +192,23 @@ const pokeSearch = async (name) => {
 
     setTimeout( async () => {
       if(filterPokemon && filterPokemon.length !== 0){
+        store.paginateShow = false
         pokemons.value = []
         // pokemons.value = await filterPokemon.slice(0, 9);
         pokemons.value = await filterPokemon
         errorSearch.value = ''
         pokemonSearchLoading.value = false
-        handleScroll()
+        // handleScroll()
         return
       }
       
       errorSearch.value = 'cant find this shitssda'
       pokemonSearchLoading.value = false
+      store.paginateShow = true
       setTimeout(() => {
         errorSearch.value = null
-      }, 3000);
-    }, 2500);
+      }, 300);
+    }, 300);
   
   } catch (error) {
     errorSearch.value = error
@@ -263,7 +276,7 @@ const displayPokemons = computed(() => {
       <PokemonFilterType @passPokemonType="passPokemonType" />
     </div>
     <div class="col-span-6">
-      <PokemonSearch @search="pokeSearch" />
+      <PokemonSearch v-model="search" @search="pokeSearch" />
     </div>
   </div>
   <div class="pokemon-wrapper container pokemon-col mt-12 max-lg:mt-8">

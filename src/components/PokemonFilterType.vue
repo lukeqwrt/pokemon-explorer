@@ -6,12 +6,38 @@
             <swiper 
              class="mySwiper "
                 :modules="modules"
-                slidesPerView="auto"
-                :spaceBetween="12"
+                slidesPerView="12"
+                :spaceBetween="0"
                 :loop="true"
                 :autoplay="{
                     delay: 2000,
                     disableOnInteraction: false,
+                }"
+                :breakpoints="{
+                    100: {
+                      slidesPerView: auto
+                    },
+                    360: {
+                      slidesPerView: 6
+                    },
+                    402: {
+                      slidesPerView: 7
+                    },
+                    459: {
+                      slidesPerView: 8
+                    },
+                    578: {
+                      slidesPerView: 10
+                    },
+                    767: {
+                      slidesPerView: 12
+                    },
+                    992: {
+                      slidesPerView: 9
+                    },
+                    1200: {
+                      slidesPerView: 12
+                    },
                 }"
             >
             <!-- class="w-[0px] h-auto" -->

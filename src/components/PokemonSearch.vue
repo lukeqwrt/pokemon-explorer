@@ -17,10 +17,17 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Icon } from '@iconify/vue';
 const emit = defineEmits(['search'])
-const pokemonSearch = ref()
+const props = defineProps({
+    modelValue: String,
+})
+// const pokemonSearch = ref()
+const pokemonSearch = computed({
+    get: () =>  props.modelValue,
+    set: (val) => emit('update:modelValue', val)
+})
 
 
 </script>
