@@ -4,7 +4,7 @@
         <div class="flex relative items-center overflow-hidden gap-[12px] bg-primary h-[50px] py-[5px] ps-[12px] rounded-xl border-2 border-[#333333]">
             <img class="cursor-pointer" @click="emit('passPokemonType','home')" src="../assets/image/icon-type-bg/Button → SVG.png" alt="">
             <swiper 
-             class="mySwiper "
+             class="mySwiper"
                 :modules="modules"
                 slidesPerView="12"
                 :spaceBetween="0"
