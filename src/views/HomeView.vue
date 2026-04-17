@@ -207,8 +207,8 @@ const pokeSearch = async (name) => {
       store.paginateShow = true
       setTimeout(() => {
         errorSearch.value = null
-      }, 300);
-    }, 300);
+      }, 2000);
+    }, 1000);
   
   } catch (error) {
     errorSearch.value = error
